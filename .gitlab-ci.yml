@@ -9,6 +9,7 @@ services:
 stages:
   - build
   - test
+  - deploy
 
 # Some variables used within the pipeline
 before_script:
@@ -18,9 +19,9 @@ before_script:
   - export TAGGED_IMAGE=$( echo $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_TAG | tr '[:upper:]' '[:lower:]' )
   # Set the correct Google Analytics Token depending on the environment
   - export GA_TOKEN=TOKEN
-  - '[ $CI_COMMIT_REF_NAME == "develop" ] && export GA_TOKEN=ALPHA'
-  - '[ $CI_COMMIT_REF_NAME == "release-"* ] && export GA_TOKEN=BETA'
-  - '[ $CI_COMMIT_REF_NAME == "master" ] && export GA_TOKEN=PROD'
+  - '[ $CI_COMMIT_REF_NAME == "develop" ] && export GA_TOKEN=$ALPHA_GA_TOKEN'
+  - '[ $CI_COMMIT_REF_NAME == "release-"* ] && export GA_TOKEN=$BETA_GA_TOKEN'
+  - '[ $CI_COMMIT_REF_NAME == "master" ] && export GA_TOKEN=$PROD_GA_TOKEN'
 
 # Group Docker login commands
 .log_into_docker : &log_into_docker |
@@ -106,3 +107,19 @@ lint_release_dockerfile:
   stage: test
   script:
     - dockerfilelint Dockerfile.release
+
+deploy_alpha:
+  stage: deploy
+  image: cdrx/rancher-gitlab-deploy
+  script:
+    - upgrade --environment Dockerfilelint --stack Dockerfilelint --service Alpha --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
+  only:
+    - develop
+
+deploy_beta:
+  stage: deploy
+  image: cdrx/rancher-gitlab-deploy
+  script:
+    - upgrade --environment Dockerfilelint --stack Dockerfilelint --service Beta --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
+  only:
+    - /^*release-.*$/

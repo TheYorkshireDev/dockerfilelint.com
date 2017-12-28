@@ -10,7 +10,7 @@ run:
 	grunt serve
 
 build:
-	grunt build
+	grunt build --buildVersion=$(BUILDVERSION) --gaToken=$(GATOKEN)
 	
 release:
-	grunt build:release
+	grunt build:release --buildVersion=$(BUILDVERSION) --gaToken=$(GATOKEN)

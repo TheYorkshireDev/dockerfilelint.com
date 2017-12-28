@@ -49,20 +49,18 @@ export default class Analyze extends React.Component{
     this.setState({content: content});
 
     // analyze it
-    window.ga('send', {
-      hitType: 'event',
-      eventCategory: 'Analysis',
-      eventAction: 'start',
-      eventLabel: 'Dockerfile analysis start'
+    gtag('event', 'analysis', {
+      event_category: 'Analysis',
+      event_action: 'start',
+      event_label: 'Dockerfile analysis start'
     });
 
     var analysis = dockerfilelint.run('', content);
     var resultLabel = analysis.length === 0 ? 'no problems detected' : 'problems detected';
-    window.ga('send', {
-      hitType: 'event',
-      eventCategory: 'Analysis',
-      eventAction: analysis.length === 0 ? 'no-problems' : 'problems',
-      eventLabel: 'Dockerfile analysis end with ' + resultLabel
+    gtag('event', 'analysis', {
+      event_category: 'Analysis',
+      event_action: analysis.length === 0 ? 'no-problems' : 'problems',
+      event_label: 'Dockerfile analysis end with ' + resultLabel
     });
 
     this.setState({analysis: analysis});

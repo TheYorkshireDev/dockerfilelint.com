@@ -82,9 +82,7 @@ test_release_image:
     - apk add --no-cache curl && rm -rf /var/cache/apk/*
     - *log_into_docker
     - docker pull $COMMIT_RELEASE_IMAGE
-    - docker run -i $COMMIT_RELEASE_IMAGE /bin/sh -c 'grunt -V'
-    - docker run -i $COMMIT_RELEASE_IMAGE /bin/sh -c 'node -v'
-    - docker run -i $COMMIT_RELEASE_IMAGE /bin/sh -c 'npm -v'
+    - docker run -i $COMMIT_RELEASE_IMAGE /bin/sh -c 'nginx -V'
     - docker run -id -p 5000:5000 $COMMIT_RELEASE_IMAGE
     # Verify the container is up
     - "sleep 30 && docker ps"

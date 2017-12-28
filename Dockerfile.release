@@ -1,0 +1,11 @@
+FROM node:9.3.0 as builder
+
+COPY . /repo
+WORKDIR /repo
+
+RUN npm install -g grunt-cli babel
+RUN make deps
+RUN make build
+
+FROM nginx:alpine
+COPY --from=builder /repo/dist /usr/share/nginx/html

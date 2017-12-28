@@ -83,10 +83,10 @@ test_release_image:
     - *log_into_docker
     - docker pull $COMMIT_RELEASE_IMAGE
     - docker run -i $COMMIT_RELEASE_IMAGE /bin/sh -c 'nginx -V'
-    - docker run -id -p 5000:5000 $COMMIT_RELEASE_IMAGE
+    - docker run -id -p 80:80 $COMMIT_RELEASE_IMAGE
     # Verify the container is up
     - "sleep 30 && docker ps"
-    - curl 172.17.0.3:5000
+    - curl 172.17.0.3:80
 
 # Lint our Dockerfile
 lint_dockerfile:

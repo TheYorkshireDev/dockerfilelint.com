@@ -1,5 +1,5 @@
 var webpackDistConfig = require('./webpack.dist.config.js'),
-    webpackDevConfig = require('./webpack.config.js');
+  webpackDevConfig = require('./webpack.config.js');
 
 module.exports = function (grunt) {
   // Let *load-grunt-tasks* require everything
@@ -134,6 +134,10 @@ module.exports = function (grunt) {
             {
               match: 'buildVersion',
               replacement: grunt.option('buildVersion') || 'version'
+            },
+            {
+              match: /TOKEN/g,
+              replacement: grunt.option('gaToken') || 'TOKEN'
             }
           ]
         },

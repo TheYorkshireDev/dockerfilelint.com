@@ -44,6 +44,29 @@ build_host_release:
     - make release
     - "[ -d dist ] && echo 'dist directory found which is expected after make'"
 
+# Build dockerfilelint.com with the development profile using docker
+build_development_image:
+  stage: build
+  script:
+    - *log_into_docker
+    - docker build --pull -t $COMMIT_DEVELOPMENT_IMAGE .
+    - docker push $COMMIT_DEVELOPMENT_IMAGE
+
+# Test our docker image and verify that the container runs and anything supposed to be installed is
+test_development_image:
+  stage: test
+  script:
+    - apk add --no-cache curl && rm -rf /var/cache/apk/*
+    - *log_into_docker
+    - docker pull $COMMIT_DEVELOPMENT_IMAGE
+    - docker run -i $COMMIT_DEVELOPMENT_IMAGE /bin/sh -c 'grunt -V'
+    - docker run -i $COMMIT_DEVELOPMENT_IMAGE /bin/sh -c 'node -v'
+    - docker run -i $COMMIT_DEVELOPMENT_IMAGE /bin/sh -c 'npm -v'
+    - docker run -id -p 5000:5000 $COMMIT_DEVELOPMENT_IMAGE
+    # Verify the container is up
+    - "sleep 30 && docker ps"
+    - curl 172.17.0.3:5000
+
 # Lint our Dockerfile
 lint_dockerfile:
   image: theyorkshiredev/dockerfile-linter:latest

@@ -14,6 +14,8 @@ To build and run locally you will need the following installed:
 * Grunt & Grunt-Cli
 * Babel
 
+Alternatively, if you have docker installed build and run within a container (see below).
+
 ## Installation
 
 On Ubuntu:
@@ -27,7 +29,9 @@ npm install
 
 ## Build & Run
 
-You can choose to build and run the website on your host machine providing you have installed all the prerequisites (you will likely have most installed).
+You can choose to build and run the website on your host machine providing you have installed all the prerequisites (you will likely have most installed). Or, you can build using docker and run the image to serve the website.
+
+**Note**: building through docker does mean you cannot take use of the hot module replacement and you will need to rebuild the image to see any code changes take affect.
 
 ### Host Machine
 
@@ -36,6 +40,18 @@ You can choose to build and run the website on your host machine providing you h
 - `make run`
 
 The frontend will then be hosted at `http://127.0.0.1:5000/`
+
+### Docker
+
+#### Build Docker Image
+```bash
+docker build -t dockerfilelint.com .
+```
+
+#### Run Container
+```bash
+docker run -it --name dockerfilelint.com -p 5000:5000 dockerfilelint.com
+```
 
 ## Contributions
 

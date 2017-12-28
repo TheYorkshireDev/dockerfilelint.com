@@ -60,5 +60,8 @@ git merge --no-ff release/0.0.1
 git push origin develop
 ```
 
+### Consistent Code Style
+This project includes a `.editorconfig` file which I ask you to adhere too. The easiest way is just to use a modern editor, most of which have not added support for editor config and will change the code style settings by default upon detecting the `.editorconfig` file in the root of the repository. You may want to check your editors compatibility or just read up on the project at the EditorConfig [website](http://editorconfig.org).
+
 # Thank You!
 Your contributions to open source, large or small, make great projects like this possible. Thank you for taking the time to contribute.

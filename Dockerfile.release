@@ -1,5 +1,7 @@
 FROM node:9.3.0 as builder
 ARG BUILD_VERSION
+ARG RELEASE_VERSION
+ARG ENVIRONMENT
 ARG GA_TOKEN
 
 COPY . /repo
@@ -7,7 +9,7 @@ WORKDIR /repo
 
 RUN npm install -g grunt-cli babel
 RUN make deps
-RUN make release BUILDVERSION=${BUILD_VERSION} GATOKEN=${GA_TOKEN}
+RUN make release BUILDVERSION=${BUILD_VERSION} RELEASEVERSION=${RELEASE_VERSION} ENVIRONMENT=${ENVIRONMENT} GATOKEN=${GA_TOKEN}
 
 FROM nginx:alpine
 COPY --from=builder /repo/dist /usr/share/nginx/html

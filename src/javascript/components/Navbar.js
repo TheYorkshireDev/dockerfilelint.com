@@ -5,7 +5,7 @@ import logo from 'assets/from-latest-logo.png';
 export default class Navbar extends React.Component{
   render() {
     return (
-      <div  className="navbar">
+      <div className="navbar">
         <a href="#"><img src={logo} alt='FROM latest' style={{width: '200px'}}/></a>
 
         <ul className="navbar-nav">

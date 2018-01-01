@@ -80,11 +80,9 @@ export default class DockerfileEditor extends React.Component{
           theme="tomorrow_night_bright"
           name="editor"
           fontSize={12}
-          width="100%"
           value={this.props.dockerfile}
           onChange={this.onChange}
-          editorProps={{$blockScrolling: true}}
-          height="100vh" />
+          editorProps={{$blockScrolling: true}} />
       </form>
     );
   }

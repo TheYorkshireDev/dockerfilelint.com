@@ -132,8 +132,20 @@ module.exports = function (grunt) {
               replacement: 'Bugsnag.releaseStage = "<%= grunt.config.get("bugsnagReleaseStage") %>";'
             },
             {
+              match: 'deployEnvironment',
+              replacement: grunt.option('environment') || 'development'
+            },
+            {
               match: 'buildVersion',
               replacement: grunt.option('buildVersion') || 'version'
+            },
+            {
+              match: 'websiteVersion',
+              replacement: grunt.option('releaseVersion') || pkgConfig.version
+            },
+            {
+              match: 'linterVersion',
+              replacement: pkgConfig.dependencies.dockerfilelint
             },
             {
               match: /TOKEN/g,

@@ -10,8 +10,6 @@
 @footer-height: calc(~"@{footer-image} + (@{footer-padding} * 2)");
 @content-height: calc(~"100vh - (@{navbar-height} + @{footer-height})");
 
-
-
 /*
  * Base structure
  */
@@ -122,6 +120,13 @@ footer {
     background-color: @navbar-color;
 }
 
+footer .releases {
+    float: left;
+    color: #777;
+    font-size: 11px;
+    text-align: right;
+}
+
 footer a,
 footer a:hover {
     color: #d0d0d0;
@@ -165,7 +170,6 @@ footer a:hover {
 
 .container-fluid {
     height: @content-height!important;
-    // padding-right: 0;
 }
 
 #editor {

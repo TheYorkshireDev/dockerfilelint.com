@@ -87,6 +87,10 @@ export default class Analyze extends React.Component{
           </div>
         </div>
         <footer id="footer">
+          <span className="releases">
+{window.environment == 'development' || window.environment == 'alpha' ? 'Build Version: ' : 'Website Version: '}
+{window.environment == 'development' || window.environment == 'alpha' ? window.buildVersion : window.websiteVersion }<br />Linter Version: {window.linterVersion}
+          </span>
           <span id="results">{this.state.analysis.length} issue{this.state.analysis.length === 1 ? '' : 's'} found</span>
           <span style={{paddingLeft: "40px"}}>
             Made by <a href="https://www.replicated.com" target="_blank"><img src={replicatedLogo} /></a>

@@ -2,7 +2,7 @@ import React from 'react';
 import AceEditor from 'react-ace';
 import pubsub from 'pubsub-js';
 
-require('brace/mode/dockerfile');
+require('../editor-modes/dockerfile');
 require('brace/theme/tomorrow_night_bright');
 require('brace/ext/searchbox');
 

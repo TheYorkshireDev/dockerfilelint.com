@@ -11,6 +11,8 @@
 @footer-height: calc(~"@{footer-image} + (@{footer-padding} * 2)");
 @content-height: calc(~"100vh - (@{navbar-height} + @{footer-height})");
 @results-height: calc(~"(@{content-height} - @{issues-footer})");
+@ace-keyword: #22b3e5;
+
 /*
  * Base structure
  */
@@ -150,7 +152,9 @@ footer img {
 .ace_editor {
     min-height: 600px;
 }
-
+.ace_keyword {
+    color: @ace-keyword!important;
+}
 .form-control-feedback {
     position: absolute;
     top: 0;

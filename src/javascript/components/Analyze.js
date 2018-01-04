@@ -11,14 +11,16 @@ export default class Analyze extends React.Component{
 
     var dockerfile = '# This is a sample Dockerfile with a couple of problems.\n' +
                      '# Paste your Dockerfile here.\n\n' +
-                     'FROM ubuntu:latest\n' +
-                     'RUN apt-get update && \\\n' +
-                     '    apt-get install -y make nasm && \\\n' +
-                     '    rm -rf /var/lib/apt/lists/*\n\n' +
-                     'WORKDIR /usr/src/hello\n' +
-                     'copy . /usr/src/hello\n\n' +
-                     'RUN make clean hello test\n\n' +
-                     'CMD ["./hello"]';
+                     'FROM golang:1.7.3 as builder\n' +
+                     'WORKDIR /go/src/github.com/alexellis/href-counter/\n' +
+                     'RUN go get -d -v golang.org/x/net/html\n' +
+                     'COPY app.go .\n' +
+                     'RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .\n\n' +
+                     'FROM alpine:latest\n' +
+                     'RUN apk add ca-certificates\n' +
+                     'WORKDIR /root/\n' +
+                     'copy --from=builder /go/src/github.com/alexellis/href-counter/app .\n' +
+                     'CMD ["./app"]';
 
     this.binder('handleSelectionChange', 'handleInputChange');
 

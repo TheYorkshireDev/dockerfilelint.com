@@ -104,16 +104,14 @@ module.exports = function (grunt) {
       dev: {
         options: {
           variables: {
-            'environment': 'development',
-            'bugsnagReleaseStage': 'development'
+            'environment': 'development'
           }
         }
       },
       release: {
         options: {
           variables: {
-            'environment': 'release',
-            'bugsnagReleaseStage': 'release'
+            'environment': 'release'
           }
         }
       }
@@ -126,10 +124,6 @@ module.exports = function (grunt) {
             {
               match: 'environment',
               replacement: '<%= grunt.config.get("environment") %>'
-            },
-            {
-              match: /Bugsnag\.releaseStage = 'development';/g,
-              replacement: 'Bugsnag.releaseStage = "<%= grunt.config.get("bugsnagReleaseStage") %>";'
             },
             {
               match: 'deployEnvironment',

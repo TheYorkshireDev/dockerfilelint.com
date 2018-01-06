@@ -1,8 +1,16 @@
 # Dockerfilelint Online ([dockerfilelint.com](https://www.dockerfilelint.com/)) 
 
+[![pipeline status](https://gitlab.com/TheYorkshireDev/dockerfilelint.com/badges/develop/pipeline.svg)](https://gitlab.com/TheYorkshireDev/dockerfilelint.com/commits/develop) [![GitHub release](https://img.shields.io/github/release/theyorkshiredev/dockerfilelint.com.svg)](https://github.com/theyorkshiredev/dockerfilelint.com/releases) [![license](https://img.shields.io/github/license/theyorkshiredev/dockerfilelint.com.svg)](https://github.com/theyorkshiredev/dockerfilelint.com/blob/master/LICENCE)
+
 [Dockerfilelint.com](https://www.dockerfilelint.com/) is a client javascript site to review and analyze a Dockerfile for common mistakes and use of best practices. 
 
 **Note:** This repository has evolved from the original project [replicatedhq/fromlatest.io](https://github.com/replicatedhq/fromlatest.io), a special thanks to everyone over there who created this excellent website. Unfortunately, it has not been updated in a long time and therefore their website ([fromlatest.io](https://www.fromlatest.io/)) is using an outdated version of [Dockerfilelint](https://github.com/replicatedhq/dockerfilelint).
+
+## Websites
+
+* Latest Release: [www.dockerfilelint.com](https://www.dockerfilelint.com)
+* Next Release Candidate: [beta.dockerfilelint.com](https://beta.dockerfilelint.com)
+* Development Branch: [alpha.dockerfilelint.com](https://alpha.dockerfilelint.com)
 
 ## Prerequisites
 

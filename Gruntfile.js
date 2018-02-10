@@ -1,5 +1,5 @@
 var webpackDistConfig = require('./webpack.dist.config.js'),
-    webpackDevConfig = require('./webpack.config.js');
+  webpackDevConfig = require('./webpack.config.js');
 
 module.exports = function (grunt) {
   // Let *load-grunt-tasks* require everything
@@ -104,16 +104,14 @@ module.exports = function (grunt) {
       dev: {
         options: {
           variables: {
-            'environment': 'development',
-            'bugsnagReleaseStage': 'development'
+            'environment': 'development'
           }
         }
       },
       release: {
         options: {
           variables: {
-            'environment': 'release',
-            'bugsnagReleaseStage': 'release'
+            'environment': 'release'
           }
         }
       }
@@ -128,12 +126,24 @@ module.exports = function (grunt) {
               replacement: '<%= grunt.config.get("environment") %>'
             },
             {
-              match: /Bugsnag\.releaseStage = 'development';/g,
-              replacement: 'Bugsnag.releaseStage = "<%= grunt.config.get("bugsnagReleaseStage") %>";'
+              match: 'deployEnvironment',
+              replacement: grunt.option('environment') || 'development'
             },
             {
               match: 'buildVersion',
               replacement: grunt.option('buildVersion') || 'version'
+            },
+            {
+              match: 'websiteVersion',
+              replacement: grunt.option('releaseVersion') || pkgConfig.version
+            },
+            {
+              match: 'linterVersion',
+              replacement: pkgConfig.dependencies.dockerfilelint
+            },
+            {
+              match: /TOKEN/g,
+              replacement: grunt.option('gaToken') || 'TOKEN'
             }
           ]
         },

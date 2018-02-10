@@ -1,12 +1,24 @@
 import React from 'react';
 
-import logo from 'assets/from-latest-logo.png';
+import logoImage from 'assets/dockerfilelint-logo.png';
+import logoImageAlpha from 'assets/dockerfilelint-logo-alpha.png';
+import logoImageBeta from 'assets/dockerfilelint-logo-beta.png';
 
 export default class Navbar extends React.Component{
   render() {
+
+    var logo;
+    if (window.environment == 'alpha') {
+      logo = <a href="#"><img src={logoImageAlpha} alt="Dockerfile Lint Alpha" style={{height: '60px'}}/></a>;
+    } else if (window.environment == 'beta') {
+      logo = <a href="#"><img src={logoImageBeta} alt="Dockerfile Lint Beta" style={{height: '60px'}}/></a>;
+    } else {
+      logo = <a href="#"><img src={logoImage} alt="Dockerfile Lint" style={{height: '60px'}}/></a>;
+    }
+
     return (
-      <div  className="navbar">
-        <a href="#"><img src={logo} alt='FROM latest' style={{width: '200px'}}/></a>
+      <div className="navbar">
+        {logo}
 
         <ul className="navbar-nav">
           <li>
@@ -16,7 +28,7 @@ export default class Navbar extends React.Component{
             <a href="/#/about">About</a>
           </li>
           <li>
-            <a href="https://github.com/replicatedhq/dockerfilelint" target="_blank"><i className="fa fa-github" /> Contribute</a>
+            <a href="/#/contribute">Contribute</a>
           </li>
         </ul>
       </div>

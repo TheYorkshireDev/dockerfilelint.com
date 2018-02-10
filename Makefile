@@ -1,4 +1,3 @@
-
 clean:
 	rm -rf node_modules
 	grunt clean
@@ -11,7 +10,7 @@ run:
 	grunt serve
 
 build:
-	grunt build
+	grunt build --buildVersion=$(BUILDVERSION) --releaseVersion=$(RELEASEVERSION) --environment=$(ENVIRONMENT) --gaToken=$(GATOKEN)
 	
 release:
-	grunt build:release
+	grunt build:release --buildVersion=$(BUILDVERSION) --releaseVersion=$(RELEASEVERSION) --environment=$(ENVIRONMENT) --gaToken=$(GATOKEN)

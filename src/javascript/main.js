@@ -6,6 +6,7 @@ import {createHashHistory} from 'history'
 import Layout from 'components/Layout';
 import Analyze from 'components/Analyze';
 import About from 'components/About';
+import Contribute from 'components/Contribute';
 
 require('font-awesome-webpack');
 require('styles/main.less');
@@ -17,6 +18,7 @@ render((
     <Route component={Layout}>
       <Route path="/" component={Analyze} />
       <Route path="/about" component={About} />
+      <Route path="/contribute" component={Contribute} />
     </Route>
   </Router>
 ), document.getElementById('content'));

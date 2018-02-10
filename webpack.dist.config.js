@@ -29,6 +29,11 @@ var config = {
 
   plugins: [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production')
+      }
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -56,7 +61,8 @@ var config = {
   node: {
     net: 'empty',
     tls: 'empty',
-    dns: 'empty'
+    dns: 'empty',
+    fs: 'empty'
   },
 
   eslint: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import Navbar from 'components/Navbar';
+import Footer from 'components/Footer';
 import OverlayAlert from 'components/OverlayAlert';
 import AnalysisItem from 'components/AnalysisItem';
 
@@ -18,6 +19,11 @@ export default class Layout extends React.Component{
           </div>
         </div>
         <OverlayAlert />
+
+        <div>
+          <Footer />
+        </div>
+
       </div>
     );
   }

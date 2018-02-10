@@ -16,7 +16,6 @@ before_script:
   - export CI_COMMIT_SHA_SHORT=${CI_COMMIT_SHA:0:8}
   - export COMMIT_RELEASE_IMAGE=$( echo $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHA_SHORT | tr '[:upper:]' '[:lower:]' )
   - export COMMIT_DEVELOPMENT_IMAGE=$( echo $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHA_SHORT | tr '[:upper:]' '[:lower:]' )-dev
-  - export TAGGED_IMAGE=$( echo $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_TAG | tr '[:upper:]' '[:lower:]' )
   - export RELEASE_VERSION=RC-$( echo $CI_COMMIT_REF_NAME | sed -n 's/.*release-\(.*\)/\1/p' )
 
 # Group Docker login commands
@@ -65,6 +64,7 @@ build_release_image:
     - develop
     - /^.*release-.*$/
     - master
+    - tags
 
 build_alpha_image:
   stage: build
@@ -88,9 +88,10 @@ build_prod_image:
   stage: build
   script:
     - *log_into_docker
-    - docker build --pull --file Dockerfile.release --build-arg BUILD_VERSION=$CI_COMMIT_SHA_SHORT --build-arg RELEASE_VERSION=$TAGGED_IMAGE --build-arg ENVIRONMENT=prod --build-arg GA_TOKEN=$PROD_GA_TOKEN -t $COMMIT_RELEASE_IMAGE .
+    - docker build --pull --file Dockerfile.release --build-arg BUILD_VERSION=$CI_COMMIT_SHA_SHORT --build-arg RELEASE_VERSION=$CI_COMMIT_TAG --build-arg ENVIRONMENT=prod --build-arg GA_TOKEN=$PROD_GA_TOKEN -t $COMMIT_RELEASE_IMAGE .
     - docker push $COMMIT_RELEASE_IMAGE
   only:
+    - tags
     - master
 
 # Test our docker image and verify that the container runs and anything supposed to be installed is
@@ -158,4 +159,4 @@ deploy_prod:
     - upgrade --environment Dockerfilelint --stack Dockerfilelint --service www --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
   when: manual
   only:
-    - master
+    - tags

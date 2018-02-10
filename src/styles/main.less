@@ -11,7 +11,7 @@
 @footer-height: calc(~"@{footer-image} + (@{footer-padding} * 2)");
 @content-height: calc(~"100vh - (@{navbar-height} + @{footer-height})");
 @results-height: calc(~"(@{content-height} - @{issues-footer})");
-@ace-keyword: #22b3e5;
+@blue: #22b3e5;
 
 /*
  * Base structure
@@ -82,7 +82,7 @@ a.underline {
 }
 
 .navbar-nav li a {
-    color: #aaa;
+    color: @blue;
 }
 
 @media (min-width: 768px) {
@@ -120,6 +120,7 @@ footer {
     text-align: center;
     color: #777;
     background-color: @navbar-color;
+    z-index: 2000;
 }
 
 footer .releases {
@@ -153,7 +154,7 @@ footer img {
     min-height: 600px;
 }
 .ace_keyword {
-    color: @ace-keyword!important;
+    color: @blue!important;
 }
 .form-control-feedback {
     position: absolute;
@@ -375,7 +376,7 @@ blockquote {
 }
 
 a.link, a.link:active, a.link:hover {
-    color: #22b3e5;
+    color: @blue;
     text-decoration: none;
 }
 

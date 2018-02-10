@@ -150,3 +150,12 @@ deploy_beta:
     - upgrade --environment Dockerfilelint --stack Dockerfilelint --service Beta --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
   only:
     - /^.*release-.*$/
+
+deploy_prod:
+  stage: deploy
+  image: cdrx/rancher-gitlab-deploy
+  script:
+    - upgrade --environment Dockerfilelint --stack Dockerfilelint --service www --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
+  when: manual
+  only:
+    - master

@@ -16,17 +16,26 @@ As mentioned above we would welcome contributors for the website. There are many
 
 I have decided to use the branching model proposed by [@nvie](https://github.com/nvie) in his [blog post](http://nvie.com/posts/a-successful-git-branching-model/).
 
+#### Branch Naming
+Depending on whether your are using GitHub or GitLab, the naming of a feature branch should follow
+```
+feature-<GH/GL>##
+```
+Where GH## or GL## is the GitHub or GitLab issue you are referencing. Note: the numbering on GitHub and GitLab differs.
+
+For example if I was working of Issue 19 on GitLab my feature branch name would be `feature-GL19`.
+
 #### Reviewing and Merging a Feature
 *Step 1.* Fetch and check out the branch for this merge request
 ```
 git fetch origin
-git checkout -b feature-T2 origin/feature-T2
+git checkout -b feature-GL2 origin/feature-GL2
 ```
 *Step 2.* Review the changes locally
 *Step 3.* Merge the branch and fix any conflicts that come up
 ```
 git checkout develop
-git merge --no-ff feature-T2
+git merge --no-ff feature-GL2
 ```
 *Step 4.* Push the result of the merge to GitLab/GitHub
 ```

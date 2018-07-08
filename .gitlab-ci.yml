@@ -136,21 +136,36 @@ lint_release_dockerfile:
   script:
     - dockerfilelint Dockerfile.release
 
-deploy_alpha:
-  stage: deploy
-  image: cdrx/rancher-gitlab-deploy
-  script:
-    - upgrade --environment Dockerfilelint --stack Dockerfilelint --service Alpha --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
-  only:
-    - develop
+# deploy_alpha:
+#   stage: deploy
+#   image: cdrx/rancher-gitlab-deploy
+#   script:
+#     - upgrade --environment Dockerfilelint --stack Dockerfilelint --service Alpha --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
+#   only:
+#     - develop
 
-deploy_beta:
+# deploy_beta:
+#   stage: deploy
+#   image: cdrx/rancher-gitlab-deploy
+#   script:
+#     - upgrade --environment Dockerfilelint --stack Dockerfilelint --service Beta --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
+#   only:
+#     - /^.*release-.*$/
+
+compile_prod:
   stage: deploy
-  image: cdrx/rancher-gitlab-deploy
+  image: node:9.3.0
   script:
-    - upgrade --environment Dockerfilelint --stack Dockerfilelint --service Beta --new-image $COMMIT_RELEASE_IMAGE --finish-upgrade
+    - "[ ! -d dist ] && echo 'dist directory not found which is expected'"
+    - npm install -g grunt-cli babel
+    - make deps
+    - make release BUILDVERSION=$CI_COMMIT_SHA_SHORT RELEASEVERSION=$CI_COMMIT_TAG ENVIRONMENT=prod GATOKEN=$PROD_GA_TOKEN
+    - "[ -d dist ] && echo 'dist directory found which is expected after make'"
+  artifacts:
+    paths:
+      - dist/
   only:
-    - /^.*release-.*$/
+    - tags
 
 deploy_prod:
   stage: deploy
